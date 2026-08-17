@@ -1,92 +1,18 @@
 import React from 'react';
-import { 
-  Code, Cpu, FileCode, Globe, Layout, Atom, 
-  Sparkles, Server, Layers, Database, GitBranch, Github, Figma 
-} from 'lucide-react';
+import { Atom, Code2, Cpu, Database, FileCode, Globe, Github, Layout, Server } from 'lucide-react';
 import { skillsData } from '../data/portfolioData';
 
-const iconMap = {
-  Code: Code,
-  Cpu: Cpu,
-  FileCode: FileCode,
-  Globe: Globe,
-  Layout: Layout,
-  Atom: Atom,
-  Sparkles: Sparkles,
-  Server: Server,
-  Layers: Layers,
-  Database: Database,
-  GitBranch: GitBranch,
-  Github: Github,
-  Figma: Figma
-};
+const iconMap = { Globe, Layout, FileCode, Atom, Cpu, Github, Server, Database };
 
-const Skills = () => {
-  return (
-    <section id="skills" className="py-24 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-          <h2 className="text-xs font-bold uppercase tracking-widest text-sky-400">
-            Technical Proficiency
-          </h2>
-          <h3 className="text-3xl sm:text-4xl font-extrabold text-white">
-            Skills & <span className="text-gradient">Developer Tools</span>
-          </h3>
-          <p className="text-slate-400 text-sm sm:text-base">
-            Core programming languages, frameworks, databases, and version control tools I use to build robust software.
-          </p>
-        </div>
-
-        {/* Skill Category Grid */}
-        <div className="space-y-12">
-          {skillsData.map((categoryGroup, idx) => (
-            <div key={idx} className="space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="w-2 h-6 bg-gradient-to-b from-sky-400 to-indigo-600 rounded-full" />
-                <h4 className="text-xl font-bold text-white tracking-wide">
-                  {categoryGroup.category}
-                </h4>
-              </div>
-
-              {/* Grid of Skill Cards */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-                {categoryGroup.items.map((skill, skillIdx) => {
-                  const IconComponent = iconMap[skill.icon] || Code;
-                  return (
-                    <div
-                      key={skillIdx}
-                      className="glass-card glass-card-hover rounded-2xl p-5 flex flex-col justify-between space-y-3 group border border-slate-800/80"
-                    >
-                      <div className="flex items-center justify-between">
-                        <div className="w-12 h-12 rounded-xl bg-slate-800/80 border border-slate-700/60 flex items-center justify-center text-sky-400 group-hover:scale-110 group-hover:text-purple-400 transition-all duration-300 shadow-inner">
-                          <IconComponent className="w-6 h-6" />
-                        </div>
-                        <span className="text-[11px] font-semibold tracking-wider px-2.5 py-1 rounded-full bg-slate-800 text-slate-300 border border-slate-700/50">
-                          {skill.level}
-                        </span>
-                      </div>
-
-                      <div>
-                        <h5 className="text-lg font-bold text-white group-hover:text-sky-300 transition-colors">
-                          {skill.name}
-                        </h5>
-                        <p className="text-xs text-slate-400 mt-1 leading-relaxed">
-                          {skill.description}
-                        </p>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          ))}
-        </div>
-
+const Skills = () => (
+  <section id="skills" className="bg-[#e9e6dd] py-24 sm:py-32">
+    <div className="section-shell">
+      <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end"><div><span className="eyebrow">Tools in the kit</span><h2 className="font-display mt-5 max-w-xl text-4xl font-bold leading-tight tracking-[-0.05em] sm:text-5xl">Learning the craft, <span className="text-[#e35e3b]">one layer at a time.</span></h2></div><p className="max-w-xs text-sm leading-6 text-[#686c63]">The technologies I&apos;m using to turn ideas into working prototypes.</p></div>
+      <div className="mt-14 grid gap-5 lg:grid-cols-2">
+        {skillsData.map((group) => <div key={group.category} className="paper-card p-6 sm:p-8"><div className="mb-7 flex items-center justify-between border-b border-[#e4e0d6] pb-5"><h3 className="font-display text-xl font-bold">{group.category}</h3><Code2 className="h-5 w-5 text-[#e35e3b]" /></div><div className="grid grid-cols-2 gap-3">{group.items.map((skill) => { const Icon = iconMap[skill.icon] || Code2; return <div key={skill.name} className="group rounded-2xl border border-[#e4e0d6] p-4 transition hover:-translate-y-1 hover:border-[#b5cf5b] hover:bg-[#f8f6f0]"><Icon className="h-5 w-5 text-[#e35e3b] transition group-hover:text-[#20241f]" /><h4 className="mt-5 text-sm font-bold">{skill.name}</h4><p className="mt-1 text-xs leading-5 text-[#777b71]">{skill.description}</p><span className="mt-3 inline-block text-[0.65rem] font-bold uppercase tracking-wider text-[#9a9e94]">{skill.level}</span></div>; })}</div></div>)}
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
 export default Skills;

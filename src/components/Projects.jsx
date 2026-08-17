@@ -1,154 +1,26 @@
 import React from 'react';
-import { Github, ExternalLink, CheckCircle, Code2 } from 'lucide-react';
+import { ArrowUpRight, Check, Code2 } from 'lucide-react';
 import { projectsData } from '../data/portfolioData';
 
-const Projects = () => {
-  return (
-    <section id="projects" className="py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14 space-y-2.5">
-          <h2 className="text-xs font-bold uppercase tracking-widest text-sky-400">
-            Student Projects
-          </h2>
-
-          <h3 className="text-3xl sm:text-4xl font-extrabold text-white">
-            Academic & Personal <span className="text-gradient">Projects</span>
-          </h3>
-
-          <p className="text-slate-400 text-sm sm:text-base">
-            Web development and hardware/software projects built to demonstrate
-            problem-solving and coding fundamentals.
-          </p>
-        </div>
-
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projectsData.map((project) => {
-            const hasGithub =
-              Boolean(
-                project.githubUrl &&
-                project.githubUrl.trim() !== '' &&
-                project.githubUrl.trim() !== '#'
-              );
-
-            const hasLive =
-              Boolean(
-                project.liveUrl &&
-                project.liveUrl.trim() !== '' &&
-                project.liveUrl.trim() !== '#'
-              );
-
-            return (
-              <div
-                key={project.id}
-                className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between space-y-5 hover:border-slate-700 transition-colors duration-200"
-              >
-
-                {/* Project Information */}
-                <div className="space-y-4">
-
-                  {/* Category */}
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="px-3 py-1 rounded-full text-[11px] font-semibold bg-sky-500/10 text-sky-400 border border-sky-500/20">
-                      {project.tag}
-                    </span>
-
-                    <Code2 className="w-4 h-4 text-slate-500" />
-                  </div>
-
-                  {/* Title */}
-                  <div>
-                    <h4 className="text-xl font-bold text-white">
-                      {project.title}
-                    </h4>
-
-                    <p className="text-xs font-medium text-slate-400 mt-0.5">
-                      {project.subtitle}
-                    </p>
-                  </div>
-
-                  {/* Description */}
-                  <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
-                    {project.description}
-                  </p>
-
-                  {/* Key Highlights */}
-                  <div className="space-y-2 pt-1">
-                    <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">
-                      Key Highlights:
-                    </span>
-
-                    <ul className="space-y-1.5">
-                      {project.features.map((feat, idx) => (
-                        <li
-                          key={idx}
-                          className="text-xs text-slate-300 flex items-start gap-2"
-                        >
-                          <CheckCircle className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
-                          <span>{feat}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-
-                {/* Tech Stack & Links */}
-                <div className="space-y-3 pt-3 border-t border-slate-800">
-
-                  {/* Tech Stack */}
-                  <div className="flex flex-wrap gap-1.5">
-                    {project.techStack.map((tech, idx) => (
-                      <span
-                        key={idx}
-                        className="px-2 py-0.5 rounded text-[11px] font-mono font-medium bg-slate-800 text-slate-300 border border-slate-700/50"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Links */}
-                  {(hasGithub || hasLive) && (
-                    <div className="flex items-center gap-2 pt-2">
-
-                      {hasGithub && (
-                        <a
-                          href={project.githubUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-xs font-semibold text-slate-200 bg-slate-800 hover:bg-slate-700 border border-slate-700 transition-colors"
-                        >
-                          <Github className="w-3.5 h-3.5 text-sky-400" />
-                          <span>GitHub</span>
-                        </a>
-                      )}
-
-                      {hasLive && (
-                        <a
-                          href={project.liveUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-xs font-semibold text-white bg-sky-600 hover:bg-sky-500 transition-colors"
-                        >
-                          <ExternalLink className="w-3.5 h-3.5" />
-                          <span>Live Demo</span>
-                        </a>
-                      )}
-
-                    </div>
-                  )}
-
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-      </div>
-    </section>
-  );
+const visualStyles = {
+  orange: 'bg-[#ee7048] text-[#20241f]',
+  lime: 'bg-[#b5cf5b] text-[#20241f]',
+  blue: 'bg-[#8eb8c8] text-[#20241f]'
 };
+
+const Projects = () => (
+  <section id="projects" className="py-24 sm:py-32">
+    <div className="section-shell">
+      <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end"><div><span className="eyebrow">Selected work</span><h2 className="font-display mt-5 text-4xl font-bold leading-tight tracking-[-0.05em] sm:text-5xl">Ideas I&apos;ve started<br /><span className="text-[#e35e3b]">bringing to life.</span></h2></div><p className="max-w-xs text-sm leading-6 text-[#686c63]">A few academic and personal projects where I&apos;ve practiced turning problems into interfaces.</p></div>
+      <div className="mt-14 grid gap-6 lg:grid-cols-3">
+        {projectsData.map((project) => <article key={project.id} className="group flex flex-col rounded-[1.75rem] border border-[#dcd8ce] bg-[#fffdf8] p-3 transition hover:-translate-y-2 hover:shadow-[0_24px_50px_rgba(42,39,30,0.1)]">
+          <div className={`project-visual ${visualStyles[project.accent]}`}><span className="absolute left-5 top-5 rounded-full bg-white/40 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-[0.14em]">{project.tag}</span><span className="font-display relative z-10 max-w-[8ch] text-4xl font-bold leading-[0.95]">{project.title}</span><span className="absolute bottom-5 right-5 font-mono text-xs font-bold opacity-60">{project.number}</span></div>
+          <div className="flex flex-1 flex-col p-4 sm:p-5"><div><p className="text-sm font-bold text-[#e35e3b]">{project.subtitle}</p><p className="mt-4 text-sm leading-6 text-[#686c63]">{project.description}</p><ul className="mt-5 space-y-2">{project.features.map((feature) => <li key={feature} className="flex gap-2 text-xs font-semibold leading-5 text-[#4f534b]"><Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#e35e3b]" />{feature}</li>)}</ul></div><div className="mt-7 flex flex-wrap items-center gap-2 border-t border-[#e4e0d6] pt-4">{project.techStack.map((tech) => <span key={tech} className="rounded-full bg-[#f0ede5] px-2.5 py-1 text-[0.65rem] font-bold text-[#686c63]">{tech}</span>)}<span className="ml-auto inline-flex items-center gap-1 text-[0.65rem] font-bold uppercase tracking-wider text-[#9a9e94]"><Code2 className="h-3.5 w-3.5" /> Prototype</span></div></div>
+        </article>)}
+      </div>
+      <div className="mt-12 rounded-2xl border border-dashed border-[#c9c5ba] p-5 text-center text-sm text-[#686c63]">More experiments are in progress. The best way to see what&apos;s next is to <a href="#contact" className="font-bold text-[#e35e3b] underline decoration-[#e35e3b]/30 underline-offset-4">start a conversation</a>.</div>
+    </div>
+  </section>
+);
 
 export default Projects;

@@ -1,121 +1,55 @@
-import React, { useState, useEffect } from 'react';
-import { Menu, X, Code2, ArrowUpRight } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { ArrowUpRight, Menu, X } from 'lucide-react';
+
+const navLinks = [
+  { name: 'About', href: '#about' },
+  { name: 'Skills', href: '#skills' },
+  { name: 'Projects', href: '#projects' }
+];
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 20) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onKeyDown = (event) => event.key === 'Escape' && setIsOpen(false);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('keydown', onKeyDown);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('keydown', onKeyDown);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Contact', href: '#contact' },
-  ];
+  const closeMenu = () => setIsOpen(false);
 
   return (
-    <nav
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-[#090d16]/85 backdrop-blur-md border-b border-slate-800/80 py-3 shadow-lg shadow-black/20'
-          : 'bg-transparent py-5'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
-          {/* Logo */}
-          <a
-            href="#home"
-            className="flex items-center gap-2 group focus:outline-none"
-          >
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-purple-600 flex items-center justify-center text-white font-bold font-sans shadow-md shadow-sky-500/20 group-hover:scale-105 transition-transform duration-300">
-              <Code2 className="w-5 h-5 text-white" />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-lg font-bold tracking-tight text-white group-hover:text-sky-400 transition-colors">
-                Anushka Singh
-              </span>
-              <span className="text-[11px] text-slate-400 font-medium tracking-wider uppercase">
-                B.Tech CSE Student
-              </span>
-            </div>
-          </a>
+    <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${scrolled ? 'border-b border-[#dcd8ce]/80 bg-[#f4f1ea]/90 py-3 backdrop-blur-xl' : 'py-5'}`}>
+      <div className="section-shell flex items-center justify-between">
+        <a href="#home" className="group flex items-center gap-3" onClick={closeMenu} aria-label="Anushka Singh home">
+          <span className="font-display flex h-10 w-10 items-center justify-center rounded-full bg-[#20241f] text-lg font-bold text-[#f4f1ea] transition-transform group-hover:-rotate-6">A<span className="text-[#ee7048]">.</span></span>
+          <span className="hidden text-sm font-bold tracking-tight sm:block">Anushka Singh</span>
+        </a>
 
-          {/* Desktop Nav Items */}
-          <div className="hidden md:flex items-center gap-1 bg-slate-900/60 backdrop-blur-sm border border-slate-800/60 px-4 py-1.5 rounded-full">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="px-4 py-2 text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 rounded-full transition-all duration-200"
-              >
-                {link.name}
-              </a>
-            ))}
-          </div>
+        <nav className="hidden items-center gap-7 text-sm font-semibold md:flex" aria-label="Primary navigation">
+          {navLinks.map((link) => <a key={link.name} href={link.href} className="ink-link text-[#555850] hover:text-[#1d1f1c]">{link.name}</a>)}
+        </nav>
 
-          {/* Hire / Contact CTA Button */}
-          <div className="hidden md:flex items-center">
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-white bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 rounded-full shadow-md shadow-sky-500/20 hover:shadow-sky-500/30 transition-all duration-300 hover:-translate-y-0.5"
-            >
-              Get In Touch
-              <ArrowUpRight className="w-4 h-4" />
-            </a>
-          </div>
+        <a href="#contact" className="hidden items-center gap-2 rounded-full bg-[#ee7048] px-4 py-2.5 text-sm font-bold text-white shadow-[0_8px_20px_rgba(238,112,72,0.2)] transition hover:-translate-y-0.5 hover:bg-[#d95d38] md:inline-flex">
+          Let&apos;s talk <ArrowUpRight className="h-4 w-4" />
+        </a>
 
-          {/* Mobile Hamburger Button */}
-          <div className="md:hidden flex items-center">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="p-2 text-slate-300 hover:text-white bg-slate-900/80 border border-slate-800 rounded-lg focus:outline-none"
-              aria-label="Toggle Navigation Menu"
-            >
-              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
-          </div>
-        </div>
+        <button type="button" className="rounded-full border border-[#d1cdc2] bg-[#fffdf8] p-2.5 md:hidden" onClick={() => setIsOpen((open) => !open)} aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'} aria-expanded={isOpen}>
+          {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </button>
       </div>
 
-      {/* Mobile Drawer Overlay */}
-      {isOpen && (
-        <div className="md:hidden bg-[#090d16]/95 backdrop-blur-xl border-b border-slate-800 px-4 pt-4 pb-6 mt-3 space-y-2 animate-fadeIn">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              onClick={() => setIsOpen(false)}
-              className="block px-4 py-3 text-base font-medium text-slate-200 hover:text-white hover:bg-slate-800/60 rounded-xl transition-colors"
-            >
-              {link.name}
-            </a>
-          ))}
-          <div className="pt-2">
-            <a
-              href="#contact"
-              onClick={() => setIsOpen(false)}
-              className="w-full flex items-center justify-center gap-2 py-3 text-center text-sm font-semibold text-white bg-gradient-to-r from-sky-500 to-indigo-600 rounded-xl shadow-md"
-            >
-              Contact Me
-              <ArrowUpRight className="w-4 h-4" />
-            </a>
-          </div>
-        </div>
-      )}
-    </nav>
+      {isOpen && <nav className="section-shell mt-4 space-y-1 rounded-2xl border border-[#dcd8ce] bg-[#fffdf8] p-3 shadow-xl md:hidden" aria-label="Mobile navigation">
+        {navLinks.map((link) => <a key={link.name} href={link.href} onClick={closeMenu} className="block rounded-xl px-4 py-3 text-sm font-bold text-[#555850] hover:bg-[#f4f1ea] hover:text-[#1d1f1c]">{link.name}</a>)}
+        <a href="#contact" onClick={closeMenu} className="mt-2 flex items-center justify-between rounded-xl bg-[#20241f] px-4 py-3 text-sm font-bold text-white">Let&apos;s talk <ArrowUpRight className="h-4 w-4 text-[#b5cf5b]" /></a>
+      </nav>}
+    </header>
   );
 };
 
