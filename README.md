@@ -6,6 +6,10 @@
 [![Built with React](https://img.shields.io/badge/Built%20with-React-61dafb?style=for-the-badge&logo=react&logoColor=20241f)](https://react.dev/)
 [![Vite](https://img.shields.io/badge/Powered%20by-Vite-646cff?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
 
+## Live website
+
+Visit the deployed portfolio: **[anushka-singh-portfolio-737r-five.vercel.app](https://anushka-singh-portfolio-737r-five.vercel.app/)**
+
 ## About this portfolio
 
 I am Anushka Singh, a second-year B.Tech Computer Science & Engineering student at Roorkee Institute of Technology. I enjoy learning how software works, building practical web experiences, and improving the small details that make an interface feel clear and human.
